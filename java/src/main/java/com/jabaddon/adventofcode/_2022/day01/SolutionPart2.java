@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 public class SolutionPart2 extends AbstractSolutionDay {
     public int solution(List<String> lines) {
         PriorityQueue<Integer> elfCounts = new PriorityQueue<>(lines.size(), Comparator.comparing(Integer::intValue).reversed());
-        extracted(lines, elfCounts);
+        iterateSumAndAdd(lines, elfCounts);
         return IntStream.rangeClosed(1, 3).map(i -> elfCounts.poll()).sum();
     }
 

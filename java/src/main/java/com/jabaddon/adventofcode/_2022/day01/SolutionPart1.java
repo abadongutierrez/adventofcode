@@ -5,7 +5,7 @@ import java.util.*;
 public class SolutionPart1 extends AbstractSolutionDay {
     public int solution(List<String> lines) {
         Queue<Integer> elfCounts = new ArrayDeque<>(lines.size());
-        extracted(lines, elfCounts);
+        iterateSumAndAdd(lines, elfCounts);
         return elfCounts.stream().max(Integer::compare).get();
     }
 
