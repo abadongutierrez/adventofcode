@@ -31,7 +31,6 @@ function setTop3IfAny() {
 for (const index in lines) {
     const line = lines[index];
     if (line.trim().length <= 0) {
-        // first we need to fill the top 3 array
         setTop3IfAny();
         caloriesCont = 0;
         currElf++;
