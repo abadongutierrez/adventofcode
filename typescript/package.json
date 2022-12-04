@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "TypeScript",
   "scripts": {
-    "day1_p1": "npx ts-node -T src/2022/day1_p1.ts",
-    "day1_p2": "npx ts-node -T src/2022/day1_p2.ts"
+    "day1_p1": "npx ts-node -T src/2022/day01/day1_p1.ts",
+    "day1_p2": "npx ts-node -T src/2022/day01/day1_p2.ts"
   },
   "keywords": [],
   "author": "Rafael Gutierrez",

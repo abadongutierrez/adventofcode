@@ -13,8 +13,10 @@ function setTop3IfAny() {
     // first set all 3 top with the first 3 values
     if (top3Index <= 2) {
         maxCalories[top3Index] = caloriesCont;
-        maxCalories = maxCalories.sort((n1, n2) => n1 - n2);
         top3Index++;
+        if (top3Index > 2) {
+            maxCalories = maxCalories.sort((n1, n2) => n1 - n2);
+        }
     } else {
         for (const i in maxCalories) {
             if (caloriesCont > maxCalories[i]) {
