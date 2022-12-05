@@ -6,7 +6,7 @@ const result = fs.readFileSync(join(__dirname, fileName), 'utf-8');
 const lines = result.split(/[\n]/);
 const prioritiesMap = {};
 
-function findCommonChar(compartment1: string, compartment2: string) {
+function findCommonChars(compartment1: string, compartment2: string) {
     const map = {};
     for (const compartment1Element of compartment1) {
         map[compartment1Element] = compartment1Element;
@@ -32,9 +32,9 @@ let groupLines = [];
 for (const i in lines) {
     const line = lines[i];
     if (groupLines.length == 3) {
-        const commonChars = findCommonChar(groupLines[0], groupLines[1]);
-        const commonCharsUnique = findCommonChar(commonChars.join(''), groupLines[2]);
-        console.log(`${commonCharsUnique[0]}`);
+        const commonChars = findCommonChars(groupLines[0], groupLines[1]);
+        const commonCharsUnique = findCommonChars(commonChars.join(''), groupLines[2]);
+        // console.log(`${commonCharsUnique[0]}`);
         totalPriority += prioritiesMap[commonCharsUnique[0]];
         groupLines = [];
     }
@@ -43,9 +43,9 @@ for (const i in lines) {
     // console.log(`line (${line}) [${compartment1} | ${compartment2}] common = ${commonChar} ${prioritiesMap[commonChar]}`);
 }
 if (groupLines.length == 3) {
-    const commonChars = findCommonChar(groupLines[0], groupLines[1]);
-    const commonCharsUnique = findCommonChar(commonChars.join(''), groupLines[2]);
+    const commonChars = findCommonChars(groupLines[0], groupLines[1]);
+    const commonCharsUnique = findCommonChars(commonChars.join(''), groupLines[2]);
     totalPriority += prioritiesMap[commonCharsUnique[0]];
-    console.log(`${commonCharsUnique[0]}`);
+    // console.log(`${commonCharsUnique[0]}`);
 }
 console.log(`Sum ${totalPriority}`);
