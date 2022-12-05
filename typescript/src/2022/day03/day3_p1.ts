@@ -21,8 +21,6 @@ function findCommonChar(compartment1: string, compartment2: string) {
 
 for (let c = 0; c < 26; c++) {
     prioritiesMap[String.fromCharCode('a'.charCodeAt(0) + c)] = c+1;
-}
-for (let c = 0; c < 26; c++) {
     prioritiesMap[String.fromCharCode('A'.charCodeAt(0) + c)] = c+1+26;
 }
 
