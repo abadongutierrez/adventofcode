@@ -8,7 +8,9 @@
     "day1_p2": "npx ts-node -T src/2022/day01/day1_p2.ts",
     "day1_p2-take2": "npx ts-node -T src/2022/day01/day1_p2-take2.ts",
     "day2_p1": "npx ts-node -T src/2022/day02/day2_p1.ts",
-    "day2_p2": "npx ts-node -T src/2022/day02/day2_p2.ts"
+    "day2_p2": "npx ts-node -T src/2022/day02/day2_p2.ts",
+    "day3_p1": "npx ts-node -T src/2022/day03/day3_p1.ts",
+    "day3_p2": "npx ts-node -T src/2022/day03/day3_p2.ts"
   },
   "keywords": [],
   "author": "Rafael Gutierrez",
