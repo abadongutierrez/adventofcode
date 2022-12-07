@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "TypeScript",
   "scripts": {
+    "test": "jest",
     "day1_p1": "npx ts-node -T src/2022/day01/day1_p1.ts",
     "day1_p1-take2": "npx ts-node -T src/2022/day01/day1_p1-take2.ts",
     "day1_p2": "npx ts-node -T src/2022/day01/day1_p2.ts",
@@ -12,21 +13,27 @@
     "day3_p1": "npx ts-node -T src/2022/day03/day3_p1.ts",
     "day3_p2": "npx ts-node -T src/2022/day03/day3_p2.ts",
     "day4_p1": "npx ts-node -T src/2022/day04/day4_p1.ts",
-    "day4_p2": "npx ts-node -T src/2022/day04/day4_p2.ts"
+    "day4_p2": "npx ts-node -T src/2022/day04/day4_p2.ts",
+    "day5_p1": "npx ts-node -T src/2022/day05/day5_p1.ts",
+    "day5_p2": "npx ts-node -T src/2022/day05/day5_p2.ts"
   },
   "keywords": [],
   "author": "Rafael Gutierrez",
   "license": "ISC",
   "devDependencies": {
+    "@jest/globals": "^29.3.1",
+    "@types/jest": "^29.2.4",
     "@types/node": "^18.11.10",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.29.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.3.1",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.0",
     "rimraf": "^3.0.2",
+    "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
   }
