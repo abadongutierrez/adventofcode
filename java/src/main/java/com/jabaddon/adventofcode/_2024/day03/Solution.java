@@ -51,34 +51,37 @@ public class Solution {
         Pattern patternMul = Pattern.compile(regexMul);
         Pattern patternDo = Pattern.compile(regexDo);
         Pattern patternDont = Pattern.compile(regexDont);
+        var enabled = true; // enabled is global not per line
         for (String line : lines) {
             List<Match> matches = new ArrayList<>();
 
-            applyMatcher(patternMul.matcher(line), matches);
-            applyMatcher(patternDo.matcher(line), matches);
-            applyMatcher(patternDont.matcher(line), matches);
+            matches.addAll(applyMatcher(patternMul.matcher(line)));
+            matches.addAll(applyMatcher(patternDo.matcher(line)));
+            matches.addAll(applyMatcher(patternDont.matcher(line)));
 
             matches.sort(Comparator.comparing(Match::index));
 
-            boolean enabled = true;
             for (Match match : matches) {
                 if (match.str().startsWith("mul") && enabled) {
                     var numbers = match.str().substring(match.str().indexOf("(")+1, match.str().length()-1);
                     String[] split = numbers.split(",");
                     result += (Long.parseLong(split[0]) * Long.parseLong(split[1]));
-                } else enabled = match.str().equals("do()");
+                } else {
+                    enabled = "do()".equals(match.str());
+                }
             }
-
         }
         return result;
     }
 
-    private void applyMatcher(Matcher matcher, List<Match> matches) {
+    private List<Match> applyMatcher(Matcher matcher) {
+        List<Match> matches = new ArrayList<>();
         // Find and print all matches
         while (matcher.find()) {
             String fullMatch = matcher.group(0); // the whole "mul(x,y)"
             matches.add(new Match(matcher.start(), fullMatch));
         }
+        return matches;
     }
 }
 

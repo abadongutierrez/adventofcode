@@ -32,7 +32,7 @@ public class Solution {
 
         for (int i = 0; i < list.size(); i++) {
             var newList = copyListExceptIndex(list, i);
-            // if it is safe without this element considere it safe
+            // if it is safe without this element consider it safe
             if (isSafeLevelForList(newList)) return true;
         }
         return false;
