@@ -21,11 +21,9 @@ public class Solution {
     Long captureAndSumMulInstructions(List<String> lines) {
         long result = 0;
         String regexMul = "mul\\((\\d{1,3}),(\\d{1,3})\\)";
-        // Compile the regex pattern
         Pattern patternMul = Pattern.compile(regexMul);
         for (String line : lines) {
             Matcher matcher = patternMul.matcher(line);
-            // Find and print all matches
             while (matcher.find()) {
                 String fullMatch = matcher.group(0); // the whole "mul(x,y)"
                 String firstNum = matcher.group(1);  // captured first number
@@ -47,7 +45,6 @@ public class Solution {
         String regexMul = "mul\\((\\d{1,3}),(\\d{1,3})\\)";
         String regexDo = "do\\(\\)";
         String regexDont = "don't\\(\\)";
-        // Compile the regex pattern
         Pattern patternMul = Pattern.compile(regexMul);
         Pattern patternDo = Pattern.compile(regexDo);
         Pattern patternDont = Pattern.compile(regexDont);
