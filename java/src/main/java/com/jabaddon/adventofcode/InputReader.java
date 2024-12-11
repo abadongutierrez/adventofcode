@@ -17,4 +17,8 @@ public class InputReader {
         }
         return lines;
     }
+
+    public static <T> List<String> readLines(Class<T> clazz, String resourceName) throws IOException {
+        return new InputReader().readLines(clazz.getResourceAsStream(resourceName));
+    }
 }
