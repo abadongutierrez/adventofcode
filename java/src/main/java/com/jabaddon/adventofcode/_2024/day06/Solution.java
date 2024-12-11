@@ -14,6 +14,7 @@ public class Solution {
 
         var solution = new Solution();
         System.out.println(solution.part1(lines));
+        // TODO part2
     }
 
     private int part1(List<String> original) {

@@ -11,8 +11,7 @@ public class Solution {
     private final List<Long> numbersLeft = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        InputReader inputReader = new InputReader();
-        List<String> lines = inputReader.readLines(Solution.class.getResourceAsStream("input.txt"));
+        List<String> lines = InputReader.readLines(Solution.class, "input.txt");
         Solution solution = new Solution();
         // total lines
         System.out.println(lines.size());
