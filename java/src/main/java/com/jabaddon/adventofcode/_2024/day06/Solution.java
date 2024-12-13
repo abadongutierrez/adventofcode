@@ -29,17 +29,17 @@ public class Solution {
         // remove guard current position
         visitedPositions.remove(new Position(initPosition.row(), initPosition.col()));
         Set<Position> obstacles = findObstacles(lines);
-        AtomicInteger count = new AtomicInteger(0);
+        AtomicInteger cycleCount = new AtomicInteger(0);
         visitedPositions.forEach(vistedPosition -> {
             try {
                 Set<Position> newObstacles = new HashSet<>(obstacles);
                 newObstacles.add(vistedPosition);
                 internalGetPositions(initPosition, lines, newObstacles);
             } catch (RuntimeException ex) {
-                if (ex.getMessage().equals("Cycle!")) count.incrementAndGet();
+                if (ex.getMessage().equals("Cycle!")) cycleCount.incrementAndGet();
             }
         });
-        return count.get();
+        return cycleCount.get();
     }
 
     private Set<Position> part1(List<String> original) {
@@ -50,7 +50,7 @@ public class Solution {
     }
 
     private Set<Position> internalGetPositions(GuardPositionAndDirection last, List<String> lines, Set<Position> obstacles) {
-        Map<Position, Integer> visitedPositions = new HashMap<>();
+        Map<Position, Integer> visitedAndHitPositions = new HashMap<>();
         // follow guard direction until is out of the map
         while (true) {
             GuardPositionAndDirection next = getNextPositionKeepingDirection(last);
@@ -60,18 +60,18 @@ public class Solution {
                     next = new GuardPositionAndDirection(
                             last.row(), last.col(), getNewDirection(next.direction()));
                 }
-                addDistinctPositionIfApply(last, visitedPositions, hitObstacle);
+                addOrUpdateVisitedAndHitPositionsIfApply(last, visitedAndHitPositions, hitObstacle);
                 // TODO: find a better way to find a cycle!!!
-                if (hitObstacle && visitedPositions.get(last.position()) > 100) {
+                if (hitObstacle && visitedAndHitPositions.get(last.position()) > 100) {
                     throw new RuntimeException("Cycle!");
                 }
                 last = next;
             } else {
-                addDistinctPositionIfApply(last, visitedPositions, false);
+                addOrUpdateVisitedAndHitPositionsIfApply(last, visitedAndHitPositions, false);
                 break;
             }
         }
-        return visitedPositions.keySet();
+        return visitedAndHitPositions.keySet();
     }
 
     private Set<Position> findObstacles(List<String> lines) {
@@ -109,7 +109,7 @@ public class Solution {
         return next;
     }
 
-    private void addDistinctPositionIfApply(GuardPositionAndDirection current, Map<Position, Integer> visitedPositions, boolean hit) {
+    private void addOrUpdateVisitedAndHitPositionsIfApply(GuardPositionAndDirection current, Map<Position, Integer> visitedPositions, boolean hit) {
         var pos = new Position(current.row(), current.col());
         if (!visitedPositions.containsKey(pos)) {
             visitedPositions.put(pos, 0);
