@@ -8,11 +8,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        List<String> lines = InputReader.readLines(Solution.class, "input.txt");
-
-        var solution = new Solution();
-        System.out.println(solution.part1(lines).size());
-        System.out.println(solution.part2(lines));
+        List.of("inputExample.txt", "input.txt").forEach(input -> {
+            System.out.println("Input: " + input);
+            List<String> lines = null;
+            try {
+                lines = InputReader.readLines(Solution.class, input);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            var solution = new Solution();
+            System.out.println(solution.part1(lines).size());
+            System.out.println(solution.part2(lines));
+        });
     }
 
     private int part2(List<String> original) {
