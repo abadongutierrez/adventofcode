@@ -36,7 +36,7 @@ public class Solution {
                 newObstacles.add(vistedPosition);
                 internalGetPositions(initPosition, lines, newObstacles);
             } catch (RuntimeException ex) {
-                if (ex.getMessage().equals("Cycle!")) cycleCount.incrementAndGet();
+                if (ex.getMessage().equals("Loop!")) cycleCount.incrementAndGet();
             }
         });
         return cycleCount.get();
@@ -50,28 +50,35 @@ public class Solution {
     }
 
     private Set<Position> internalGetPositions(GuardPositionAndDirection last, List<String> lines, Set<Position> obstacles) {
-        Map<Position, Integer> visitedAndHitPositions = new HashMap<>();
+        // keeps track of the visited positions
+        Set<Position> visitedPositions = new HashSet<>();
+        // keeps track of the number of times an obstacle has been hit
+        Map<Position, Integer> obstaclesHit = new HashMap<>();
         // follow guard direction until is out of the map
         while (true) {
+            // update current position as visited
+            visitedPositions.add(new Position(last.row(), last.col()));
+            // find next position
             GuardPositionAndDirection next = getNextPositionKeepingDirection(last);
             if (next.position().isInsideMap(lines)) {
-                boolean hitObstacle = obstacles.contains(next.position());
-                if (hitObstacle) {
+                if (obstacles.contains(next.position())) {
+                    // update obstacle hit count
+                    obstaclesHit.compute(new Position(next.row(), next.col()), (k, v) -> v == null ? 1 : v + 1);
+                    // verify a loop
+                    if (obstaclesHit.get(new Position(next.row(), next.col())) > 2) {
+                        throw new RuntimeException("Loop!");
+                    }
+
+                    // fix next because we cannot go into an obstacle
                     next = new GuardPositionAndDirection(
                             last.row(), last.col(), getNewDirection(next.direction()));
                 }
-                addOrUpdateVisitedAndHitPositionsIfApply(last, visitedAndHitPositions, hitObstacle);
-                // TODO: find a better way to find a cycle!!!
-                if (hitObstacle && visitedAndHitPositions.get(last.position()) > 100) {
-                    throw new RuntimeException("Cycle!");
-                }
                 last = next;
             } else {
-                addOrUpdateVisitedAndHitPositionsIfApply(last, visitedAndHitPositions, false);
                 break;
             }
         }
-        return visitedAndHitPositions.keySet();
+        return visitedPositions;
     }
 
     private Set<Position> findObstacles(List<String> lines) {
@@ -107,15 +114,6 @@ public class Solution {
             case '>' -> next = new GuardPositionAndDirection(current.row(), current.col() + 1, current.direction());
         }
         return next;
-    }
-
-    private void addOrUpdateVisitedAndHitPositionsIfApply(GuardPositionAndDirection current, Map<Position, Integer> visitedPositions, boolean hit) {
-        var pos = new Position(current.row(), current.col());
-        if (!visitedPositions.containsKey(pos)) {
-            visitedPositions.put(pos, 0);
-        } else if (hit) {
-            visitedPositions.put(pos, visitedPositions.get(pos) + 1);
-        }
     }
 
     private GuardPositionAndDirection findGuard(List<String> lines) {
